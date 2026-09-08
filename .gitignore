@@ -1,0 +1,81 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env
+.env.*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+
+# tests
+/coverage
+
+# generated native folders
+/ios
+/android
+
+# database related
+/database
+
+#claude
+.claude
+
+# notes locales
+TODO.md
+
+# scripts
+scripts/grant-premium.js
+scripts/revoke-premium.js
+scripts/add-user.js
+scripts/add-friend.js
+
+# documentation
+docs/
+
+# outillage IA local
+.agents/
+
+# dossier de certification (rapport, soutenance, synthèses de missions) — hors dépôt
+*.docx
+*.pptx
+~$*
+Rapport-Alternance-*
+Soutenance-CDAN-*
+*CDAN*.html
+MISSIONS_*.md
+scripts/generate-rapport-alternance*.py
+
+# artefacts Python des scripts de génération du dossier
+__pycache__/
+*.pyc

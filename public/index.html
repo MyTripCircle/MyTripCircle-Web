@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
+    <title>%WEB_TITLE%</title>
+
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+    <!-- `apple-mobile-web-app-capable` reste requis par iOS ; sa contrepartie
+         standard `mobile-web-app-capable` est celle attendue par les autres
+         navigateurs, qui déprécient la variante préfixée. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Partage social : les voyages publics sont diffusés par lien (TripPublicViewScreen) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MyTripCircle" />
+    <meta property="og:title" content="MyTripCircle" />
+    <meta property="og:image" content="/icon.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style id="expo-reset">
+      html,
+      body {
+        height: 100%;
+      }
+      /* Les <ScrollView> gèrent le défilement : le body ne doit jamais scroller. */
+      body {
+        overflow: hidden;
+        margin: 0;
+        background-color: #f5f0e8;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Neutralise le rebond élastique de la page sur trackpad/mobile. */
+        overscroll-behavior: none;
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+      /* Évite le flash blanc avant l'hydratation quand le système est en thème sombre. */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #2a2318;
+        }
+      }
+      /* Anneau de focus visible au clavier uniquement — react-native-web ne le fournit pas. */
+      :focus-visible {
+        outline: 2px solid #c4714a;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript> MyTripCircle nécessite JavaScript pour fonctionner. </noscript>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+{
+  "expo": {
+    "name": "MyTripCircle",
+    "slug": "MyTripCircle",
+    "version": "1.0.0",
+    "platforms": [
+      "web"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "privacyPolicyUrl": "https://mytripcircle.com/privacy",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pandasauvage.MyTripCircle",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false,
+          "NSAllowsLocalNetworking": true
+        },
+        "NSCameraUsageDescription": "MyTripCircle utilise l'appareil photo pour scanner vos billets et réservations.",
+        "NSPhotoLibraryUsageDescription": "MyTripCircle accède à vos photos pour ajouter des pièces jointes à vos réservations et personnaliser votre profil.",
+        "NSPhotoLibraryAddUsageDescription": "MyTripCircle peut enregistrer des photos dans votre bibliothèque.",
+        "NSLocationWhenInUseUsageDescription": "MyTripCircle utilise votre position pour l'afficher sur la carte et suggérer des adresses à proximité."
+      },
+      "privacyManifests": {
+        "NSPrivacyTracking": false,
+        "NSPrivacyTrackingDomains": [],
+        "NSPrivacyCollectedDataTypes": [
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeName",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeEmailAddress",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypePhoneNumber",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypePreciseLocation",
+            "NSPrivacyCollectedDataTypeLinked": false,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeOtherUserContent",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypePhotosOrVideos",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          }
+        ],
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "C617.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "E174.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "35F9.1"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.panda_sauvage.MyTripCircle",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "mytripcircle-api.enzo-turpin.fr",
+              "pathPrefix": "/invitation"
+            },
+            {
+              "scheme": "https",
+              "host": "mytripcircle-api.enzo-turpin.fr",
+              "pathPrefix": "/reset-password"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ],
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png",
+      "name": "MyTripCircle",
+      "shortName": "MyTripCircle",
+      "lang": "fr",
+      "description": "Organisez vos voyages entre amis : itinéraires, réservations, adresses et idées, au même endroit.",
+      "themeColor": "#C4714A",
+      "backgroundColor": "#F5F0E8",
+      "display": "standalone",
+      "startUrl": "/",
+      "scope": "/"
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker",
+      "expo-localization",
+      "expo-web-browser",
+      "expo-apple-authentication",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "MyTripCircle utilise l'appareil photo pour scanner vos billets et réservations."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "MyTripCircle accède à vos photos pour ajouter des pièces jointes à vos réservations et personnaliser votre profil."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "MyTripCircle utilise votre position pour l'afficher sur la carte et suggérer des adresses à proximité."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#C8785A",
+          "sounds": []
+        }
+      ]
+    ],
+    "scheme": "mytripcircle",
+    "linking": {
+      "prefixes": [
+        "mytripcircle://"
+      ],
+      "config": {
+        "screens": {
+          "Invitation": "invitation/:token"
+        }
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "25e4f009-aab2-48ec-84ba-e2efa1b1198c"
+      }
+    },
+    "owner": "panda_sauvage"
+  }
+}

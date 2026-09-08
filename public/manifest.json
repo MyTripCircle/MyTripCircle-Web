@@ -1,0 +1,26 @@
+{
+  "name": "MyTripCircle",
+  "short_name": "MyTripCircle",
+  "lang": "fr",
+  "description": "Organisez vos voyages entre amis : itinéraires, réservations, adresses et idées, au même endroit.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#C4714A",
+  "background_color": "#F5F0E8",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
