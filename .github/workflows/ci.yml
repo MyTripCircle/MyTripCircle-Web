@@ -31,13 +31,19 @@ jobs:
           node-version: 20.x
           cache: npm
 
+      # `--legacy-peer-deps` compense un conflit de dépendances pairs :
+      # `@react-navigation/drawer` réclame `react-native-reanimated`, dont la
+      # version 4 exige React Native 0.83 à 0.87 quand ce projet est en 0.81.5.
+      # Le verrou fige une résolution qui fonctionne ; le drapeau ne fait
+      # qu'autoriser npm à l'appliquer. Dette à résorber en alignant ces
+      # versions, après quoi ce drapeau doit disparaître.
       - name: Installer les dépendances
-        run: npm ci
+        run: npm ci --ignore-scripts --legacy-peer-deps
 
       - name: Vérification de types (TypeScript)
         run: npm run typecheck
 
-      - name: Tests + couverture (client + serveur)
+      - name: Tests + couverture (client)
         run: npm run test:coverage -- --ci
 
       - name: Publier le rapport de couverture
