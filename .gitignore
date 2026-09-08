@@ -79,3 +79,6 @@ scripts/generate-rapport-alternance*.py
 # artefacts Python des scripts de génération du dossier
 __pycache__/
 *.pyc
+
+# consignes locales à l'assistant : outillage du poste de travail, pas du produit
+CLAUDE.md
