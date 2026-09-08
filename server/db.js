@@ -1,0 +1,148 @@
+const { MongoClient } = require("mongodb");
+const { MONGODB_URI, DB_NAME } = require("./config");
+const logger = require("./utils/logger");
+
+const TTL_ITINERARY_CACHE_S = 604800;  // 7 jours
+const TTL_ITINERARY_USAGE_S = 86400;   // 24 heures
+
+let db;
+let client;
+
+async function connectMongo() {
+  client = new MongoClient(MONGODB_URI);
+  await client.connect();
+  db = client.db(DB_NAME);
+  logger.info(`[db] Connecté à MongoDB : ${DB_NAME}`);
+
+  await _ensureIndexes();
+  await _updateUsersValidator();
+}
+
+// Ferme la connexion (utilisé en teardown de tests pour éviter les handles ouverts).
+async function closeMongo() {
+  if (client) {
+    await client.close();
+    client = undefined;
+    db = undefined;
+  }
+}
+
+function getDb() {
+  if (!db) throw new Error("Base de données non connectée");
+  return db;
+}
+
+async function _ensureIndexes() {
+  try {
+    await db.collection("users").createIndex({ emailHash: 1 }, { unique: true, sparse: true });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création de l'index users.emailHash :", err.message);
+  }
+  try {
+    await db.collection("users").createIndex({ phoneHash: 1 }, { sparse: true });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création de l'index users.phoneHash :", err.message);
+  }
+
+  try {
+    await db.collection("itinerary_cache").createIndex({ city: 1, days: 1 });
+    await db
+      .collection("itinerary_cache")
+      .createIndex({ createdAt: 1 }, { expireAfterSeconds: TTL_ITINERARY_CACHE_S });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index itinerary_cache :", err.message);
+  }
+
+  try {
+    await db
+      .collection("itinerary_usage")
+      .createIndex({ userId: 1, createdAt: 1 });
+    await db
+      .collection("itinerary_usage")
+      .createIndex({ createdAt: 1 }, { expireAfterSeconds: TTL_ITINERARY_USAGE_S });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index itinerary_usage :", err.message);
+  }
+
+  try {
+    await db.collection("users").createIndex({ calendarToken: 1 }, { sparse: true });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création de l'index users.calendarToken :", err.message);
+  }
+
+  // RGPD Art. 5(f) — Audit logs : TTL 1 an + index userId pour audit ciblé
+  try {
+    await db.collection("auditLogs").createIndex(
+      { createdAt: 1 },
+      { expireAfterSeconds: 365 * 24 * 60 * 60 }
+    );
+    await db.collection("auditLogs").createIndex({ userId: 1 });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index auditLogs :", err.message);
+  }
+
+  // Subscriptions : lookup par userId + TTL auto-nettoyage après 2 ans
+  try {
+    await db.collection("subscriptions").createIndex({ userId: 1 }, { unique: true });
+    await db.collection("subscriptions").createIndex({ status: 1 });
+    await db.collection("subscriptions").createIndex({ endDate: 1 });
+    // Les webhooks Stripe identifient l'abonnement par son id côté PSP
+    await db.collection("subscriptions").createIndex({ stripeSubscriptionId: 1 }, { sparse: true });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index subscriptions :", err.message);
+  }
+
+  // Web Push : un endpoint = un navigateur, unicité pour l'upsert d'abonnement
+  try {
+    await db.collection("pushSubscriptions").createIndex({ endpoint: 1 }, { unique: true });
+    await db.collection("pushSubscriptions").createIndex({ userId: 1 });
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index pushSubscriptions :", err.message);
+  }
+
+  // RGPD Art. 7 — Consentements : index userId pour lookup rapide + TTL 5 ans
+  try {
+    await db.collection("user_consents").createIndex({ userId: 1 });
+    await db.collection("user_consents").createIndex(
+      { createdAt: 1 },
+      { expireAfterSeconds: 5 * 365 * 24 * 60 * 60 }
+    );
+  } catch (err) {
+    logger.error("[db] Erreur lors de la création des index user_consents :", err.message);
+  }
+}
+
+async function _updateUsersValidator() {
+  try {
+    const infos = await db
+      .listCollections({ name: "users" }, { nameOnly: false })
+      .toArray();
+    const info = infos[0];
+    const schema = info?.options?.validator?.$jsonSchema;
+
+    const phoneSchema = schema?.properties?.phone;
+    const phoneAllowsNull = Array.isArray(phoneSchema?.bsonType) && phoneSchema.bsonType.includes("null");
+    if (schema?.properties && (!phoneSchema || !phoneAllowsNull)) {
+      const nextSchema = {
+        ...schema,
+        properties: {
+          ...schema.properties,
+          phone: { bsonType: ["string", "null"] },
+        },
+      };
+
+      await db.command({
+        collMod: "users",
+        validator: { $jsonSchema: nextSchema },
+        validationLevel: info?.options?.validationLevel || "strict",
+        validationAction: info?.options?.validationAction || "error",
+      });
+
+      logger.info("[db] Validateur users mis à jour (phone activé)");
+    }
+  } catch (e) {
+    logger.warn("[db] Impossible de mettre à jour le validateur users :", e?.message);
+  }
+}
+
+module.exports = { connectMongo, closeMongo, getDb };
