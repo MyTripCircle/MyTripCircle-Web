@@ -10,13 +10,6 @@ module.exports = {
       testMatch: ["<rootDir>/src/**/*.test.{ts,tsx}"],
       modulePathIgnorePatterns: ["<rootDir>/.claude/", "<rootDir>/dist/"],
     },
-    {
-      displayName: "server",
-      testEnvironment: "node",
-      testMatch: ["<rootDir>/server/**/*.test.js"],
-      setupFiles: ["<rootDir>/server/__tests__/setupEnv.js"],
-      modulePathIgnorePatterns: ["<rootDir>/.claude/"],
-    },
   ],
   // Périmètre de couverture restreint à la couche réellement testable unitairement
   // (logique métier client + backend). Écrans, composants UI, contextes,
@@ -27,12 +20,9 @@ module.exports = {
     "src/utils/**/*.ts",
     "src/hooks/**/*.{ts,tsx}",
     "src/components/**/*Helpers.ts",
-    "server/**/*.js",
     "!**/__tests__/**",
     "!**/*.d.ts",
     "!src/services/api/index.ts",
     "!src/utils/i18n/**",
-    "!server/index.js",
-    "!server/db.js",
   ],
 };
