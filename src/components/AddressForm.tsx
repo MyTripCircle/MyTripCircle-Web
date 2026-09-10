@@ -85,7 +85,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
             </View>
 
             {/* Nom */}
-            {(initialAddress || form.name) && (
+            {Boolean(initialAddress || form.name) && (
               <FormField
                 label={t("addresses.form.name")}
                 value={form.name}
