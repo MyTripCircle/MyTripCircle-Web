@@ -1,12 +1,13 @@
 name: CI
 
-# Intégration continue : à chaque push sur main et à chaque pull request,
-# installation propre des dépendances, vérification de types, exécution de la
-# suite de tests (client + serveur) avec couverture, et audit des dépendances.
+# Intégration continue : à chaque push sur main ou develop et à chaque pull
+# request, installation propre des dépendances, vérification de types, suite de
+# tests du client avec couverture, construction du bundle et audit des
+# dépendances.
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
 
 # Annule un run en cours si un nouveau commit est poussé sur la même réf.

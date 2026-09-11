@@ -1,5 +1,5 @@
-// Deux projets Jest : le client web (preset jest-expo/web) et le backend
-// Node/Express (environnement node). Lancer les deux avec `npm test`.
+// Projet Jest unique : le client web (preset jest-expo/web). Le code serveur
+// vit dans le dépôt MyTripCircle-API, avec sa propre suite.
 // Le preset `web` résout les variantes `.web.ts(x)` et alias react-native vers
 // react-native-web : les tests exercent donc bien le code réellement livré.
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     },
   ],
   // Périmètre de couverture restreint à la couche réellement testable unitairement
-  // (logique métier client + backend). Écrans, composants UI, contextes,
+  // (logique métier du client). Écrans, composants UI, contextes,
   // navigation et fichiers de données/traductions sont validés autrement
   // (tests d'intégration, recette manuelle, TestFlight) et hors périmètre ici.
   collectCoverageFrom: [
