@@ -142,4 +142,4 @@ Points de vigilance :
 
 ## Licence
 
-MIT
+Tous droits réservés. Le code est consultable publiquement ; toute réutilisation, copie ou redistribution est soumise à autorisation écrite.
