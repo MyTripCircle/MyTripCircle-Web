@@ -132,6 +132,16 @@
               "scheme": "https",
               "host": "mytripcircle-api.enzo-turpin.fr",
               "pathPrefix": "/reset-password"
+            },
+            {
+              "scheme": "https",
+              "host": "api.mytripcircle.fr",
+              "pathPrefix": "/invitation"
+            },
+            {
+              "scheme": "https",
+              "host": "api.mytripcircle.fr",
+              "pathPrefix": "/reset-password"
             }
           ],
           "category": [

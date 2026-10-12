@@ -1,5 +1,5 @@
 // Configuration de l'API consommée par le client web.
-const PRODUCTION_API_URL = "https://mytripcircle-api.enzo-turpin.fr";
+const PRODUCTION_API_URL = "https://api.mytripcircle.fr";
 
 // Surcharge au build via EXPO_PUBLIC_API_URL : Expo inline les variables
 // préfixées EXPO_PUBLIC_ dans le bundle. Sans elle, `npm run dev` ferait taper

@@ -3,9 +3,14 @@ import type { LinkingOptions } from "@react-navigation/native";
 
 import type { RootStackParamList } from "../types";
 
-// Hôte historique des liens transactionnels (invitations, réinitialisation de
-// mot de passe) : déclaré aussi dans les intentFilters Android de app.json.
-const DEEP_LINK_HOSTS = ["mytripcircle://", "https://mytripcircle-api.enzo-turpin.fr"];
+// Hôtes des liens transactionnels (invitations, réinitialisation de mot de
+// passe) : déclarés aussi dans les intentFilters Android de app.json. L'ancien
+// hôte reste accepté pour les liens envoyés avant le changement de domaine.
+const DEEP_LINK_HOSTS = [
+  "mytripcircle://",
+  "https://api.mytripcircle.fr",
+  "https://mytripcircle-api.enzo-turpin.fr",
+];
 
 /**
  * Sur web, l'origine réelle varie (localhost, préprod, production) : on la lit
